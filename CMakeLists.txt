@@ -4,7 +4,6 @@ project(bike LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set_target_properties(bike PROPERTIES RUNTIME_OUTPUT_DIRECTORY "./bin")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -37,5 +36,7 @@ add_executable(bike
     ${SRC_PATH}/mainwindow.ui
     ${SOURCES}
     ${HEADERS})
+
+set_target_properties(bike PROPERTIES RUNTIME_OUTPUT_DIRECTORY "./bin")
 
 target_link_libraries(bike Qt5::Core Qt5::Gui Qt5::Sql Qt5::Widgets)
