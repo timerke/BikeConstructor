@@ -35,10 +35,16 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     // Создаем меню
     QMenuBar *main_menu = new QMenuBar();
     QMenu *mode_menu = new QMenu("Режим работы");
+    /*
     mode_menu->addAction("Администратор", this,
                          &MainWindow::switch_to_admin);
     mode_menu->addAction("Пользователь", this,
                          &MainWindow::switch_to_user);
+    */
+    mode_menu->addAction("Администратор", this,
+                         SLOT(switch_to_admin));
+    mode_menu->addAction("Пользователь", this,
+                         SLOT(switch_to_user));
     main_menu->addMenu(mode_menu);
     main_layout->setMenuBar(main_menu);
     setLayout(main_layout);
