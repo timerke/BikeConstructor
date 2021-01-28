@@ -17,12 +17,12 @@
 class Accessory
 {
 private:
+    // Список значений полей типа float
+    QList<float> float_;
     // Список значений полей типа int
     QList<int> int_;
     // Список значений полей типа str
     QList<QString> str_;
-    // Список значений полей типа float
-    QList<float> float_;
     // Список названий полей
     QList<QString> names;
     // Список типов полей
@@ -53,7 +53,7 @@ public:
     // Метод задает значения полей по запросу из базы данных
     void init(const QSqlQuery&);
     // Метод проверяет, что все необходимые поля имеют значения
-    bool is_empty();
+    bool is_empty() const;
     // Метод задает значение поля по его имени
     void set(const QString&, QVariant);
     // Метод задает значение поля по его индексу
@@ -61,7 +61,8 @@ public:
     // Метод задает значения полей
     void set(const QList<int>&, const QList<float>&,
              const QList<QString>&);
-    // Метод задает значения полей
+    // Метод задает значения полей путем копирования аналогичного
+    // объекта
     void set(const Accessory&);
     // Метод задает поля, значения которых должны быть заданы
     // обязательно

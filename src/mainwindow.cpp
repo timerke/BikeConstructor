@@ -42,9 +42,9 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
                          &MainWindow::switch_to_user);
     */
     mode_menu->addAction("Администратор", this,
-                         SLOT(switch_to_admin));
+                         SLOT(switch_to_admin()));
     mode_menu->addAction("Пользователь", this,
-                         SLOT(switch_to_user));
+                         SLOT(switch_to_user()));
     main_menu->addMenu(mode_menu);
     main_layout->setMenuBar(main_menu);
     setLayout(main_layout);
@@ -215,8 +215,8 @@ void MainWindow::create_combo_box(
     connect(cbox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::set_new_value);
     */
-    connect(cbox, SIGNAL(currentIndexChanged), this,
-            SLOT(set_new_value));
+    connect(cbox, SIGNAL(currentIndexChanged(int)), this,
+            SLOT(set_new_value(int)));
     l->addRow(name, cbox);
 }
 
@@ -350,9 +350,11 @@ QWidget* MainWindow::create_selection_for_tbls_wnd()
     QComboBox *combo = new QComboBox(widget);
     combo->addItems(TBLS_RUS);
     /*
-    connect(combo, &QComboBox::currentIndexChanged, this,
-            &MainWindow::set_new_tbl);
+    connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &MainWindow::set_new_tbl);
     */
+    connect(combo, SIGNAL(currentIndexChanged(int)), this,
+            SLOT(set_new_tbl(int)));
     vbox->addWidget(combo, 1, Qt::AlignVCenter);
     // Создаем кнопку выбора
     btn = new QPushButton("Выбрать", widget);
@@ -561,7 +563,7 @@ void MainWindow::read_value_from_line_edit(QString text)
 }
 
 /**
- * Метод задает новую таблицу из базы данных для редактирования.
+ * Слот задает новую таблицу из базы данных для редактирования.
  * @param index: новый индекс таблицы из выпадающего списка.
  */
 void MainWindow::set_new_tbl(int index)
@@ -574,7 +576,7 @@ void MainWindow::set_new_tbl(int index)
 }
 
 /**
- * Метод задает новое значение для комплектующего, выбранного
+ * Слот задает новое значение для комплектующего, выбранного
  * пользователем.
  * @param index: новый индекс из выпадающего списка, выбранный
  * пользователем.

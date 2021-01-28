@@ -35,7 +35,7 @@ Database::~Database()
  * @param a: добавляемая позиция.
  * @return: id, если позиция была добавлена, иначе -1.
  */
-int Database::add(const QString &tbl, const Accessory &a)
+int Database::add(const QString &tbl, const Accessory &a) const
 {
     // Чтобы проверить вставку позиции в таблицу, будем
     // проверять количество элементов в таблице
@@ -73,18 +73,14 @@ int Database::add(const QString &tbl, const Accessory &a)
  * @param list: список для сохранения рам.
  */
 void Database::get_chassis_for_style(const QString &style,
-                                     QList<Accessory> &list)
+                                     QList<Accessory> &list) const
 {
     QString q = "SELECT * FROM chassis WHERE style='" + style + "'";
-    // Имена полей
-    const QList<QString> NAMES =
-        {"id", "name", "style", "steering_rod", "min_travel",
-         "max_travel", "rear_absorber", "wheel", "front_rotor",
-         "rear_rotor", "price"};
-    // Типы значений полей
-    const QList<QString> TYPES =
-        {"int", "str", "str", "str", "int", "int", "str", "float",
-         "int", "int", "int"};
+    // Получаем индекс таблицы, имена полей и типы значений
+    // таблицы
+    int tbl_index = find_tbl_index("chassis");
+    const QList<QString> NAMES = FIELDS_NAMES[tbl_index];
+    const QList<QString> TYPES = FIELDS_TYPES[tbl_index];
     get_data(q, NAMES, TYPES, CHASSIS_RUS, list);
 }
 
@@ -98,7 +94,7 @@ void Database::get_chassis_for_style(const QString &style,
  */
 void Database::get_data(const QString &q, const QList<QString> &n,
                         const QList<QString> &t, const QString &type,
-                        QList<Accessory> &list)
+                        QList<Accessory> &list) const
 {
     QSqlQuery query;
     query.exec(q);
@@ -112,7 +108,7 @@ void Database::get_data(const QString &q, const QList<QString> &n,
  * @param list: список для сохранения передних амортизаторов.
  */
 void Database::get_front_absorbers(Accessory *c,
-                                   QList<Accessory> &list)
+                                   QList<Accessory> &list) const
 {
     QString rod = c->get("steering_rod").toString();
     QString min_t = c->get("min_travel").toString();
@@ -124,7 +120,7 @@ void Database::get_front_absorbers(Accessory *c,
                 max_t + " AND rotor=" + rotor + " AND wheel=" + wheel;
     // Получаем индекс таблицы, имена полей и типы значений
     // таблицы
-    int tbl_index = find_tbl_index("chassis");
+    int tbl_index = find_tbl_index("front_absorber");
     const QList<QString> NAMES = FIELDS_NAMES[tbl_index];
     const QList<QString> TYPES = FIELDS_TYPES[tbl_index];
     get_data(q, NAMES, TYPES, FRONT_ABSORBER_RUS, list);
@@ -136,7 +132,7 @@ void Database::get_front_absorbers(Accessory *c,
  * @param list: список для сохранения роторов.
  */
 void Database::get_front_rotors(Accessory *c,
-                                QList<Accessory> &list)
+                                QList<Accessory> &list) const
 {
     QString s = c->get("front_rotor").toString();
     QString q = "SELECT * FROM rotor WHERE size=" + s;
@@ -154,7 +150,7 @@ void Database::get_front_rotors(Accessory *c,
  * @param list: список для сохранения задних амортизаторов.
  */
 void Database::get_rear_absorbers(Accessory *c,
-                                  QList<Accessory> &list)
+                                  QList<Accessory> &list) const
 {
     QString s = c->get("rear_absorber").toString();
     QString q = "SELECT * FROM rear_absorber WHERE size='" +
@@ -173,7 +169,7 @@ void Database::get_rear_absorbers(Accessory *c,
  * @param list: список для сохранения роторов.
  */
 void Database::get_rear_rotors(Accessory *c,
-                               QList<Accessory> &list)
+                               QList<Accessory> &list) const
 {
     QString s = c->get("rear_rotor").toString();
     QString q = "SELECT * FROM rotor WHERE size=" + s;
@@ -189,7 +185,7 @@ void Database::get_rear_rotors(Accessory *c,
  * Метод возвращает стили катания.
  * @param list: список для сохранения стилей катания.
  */
-void Database::get_riding_styles(QList<QString>& list)
+void Database::get_riding_styles(QList<QString>& list) const
 {
     QSqlQuery query;
     query.exec("SELECT DISTINCT style FROM chassis");
@@ -202,7 +198,7 @@ void Database::get_riding_styles(QList<QString>& list)
  * @param tbl: название таблицы.
  * @return: количество элементов.
  */
-int Database::get_size(const QString& tbl)
+int Database::get_size(const QString& tbl) const
 {
     QSqlQuery query;
     query.exec("SELECT COUNT(id) FROM " + tbl + ";");
@@ -216,7 +212,7 @@ int Database::get_size(const QString& tbl)
  * @param list: список для сохранения данных.
  */
 void Database::get_tbl_data(const QString &tbl_name,
-                            QList<Accessory> &list)
+                            QList<Accessory> &list) const
 {
     QString q = "SELECT * FROM " + tbl_name;
     // Получаем индекс таблицы, имена полей и типы значений
@@ -233,7 +229,7 @@ void Database::get_tbl_data(const QString &tbl_name,
  * @param list: список для сохранения колес.
  */
 void Database::get_wheels(Accessory *c,
-                          QList<Accessory> &list)
+                          QList<Accessory> &list) const
 {
     QString d = c->get("wheel").toString();
     QString q = "SELECT * FROM wheel WHERE diameter=" + d;
@@ -249,7 +245,7 @@ void Database::get_wheels(Accessory *c,
  * Метод проверяет, открыто ли соединение с базой данных.
  * @return: true, если соединение открыто, иначе false.
  */
-bool Database::is_open()
+bool Database::is_open() const
 {
     return db.isOpen();
 }
@@ -261,7 +257,7 @@ bool Database::is_open()
  * @return: true, если позиции удалены, иначе false.
  */
 bool Database::remove(const QString &tbl,
-                      const QList<int> &ids)
+                      const QList<int> &ids) const
 {
     // Чтобы проверить вставку позиции в таблицу, будем
     // проверять количество элементов в таблице

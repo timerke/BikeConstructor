@@ -13,8 +13,7 @@
  */
 int find_tbl_index(const QString &tbl_name)
 {
-    int i;
-    for (i = 0; i < TBLS_ENG.size(); i++)
+    for (int i = 0; i < TBLS_ENG.size(); i++)
     {
         if (TBLS_ENG[i] == tbl_name)
             return i;

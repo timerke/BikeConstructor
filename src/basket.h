@@ -26,13 +26,13 @@ public:
     // Метод добавляет продукт во временный список
     void add_to_temp(Accessory&);
     // Метод возвращает продукт из корзины
-    Accessory at(int);
+    Accessory at(int) const;
     // Метод очищает корзину
     void clear();
     // Метод возвращает стоимость корзины
-    QVariant get_price();
+    QVariant get_price() const;
     // Метод возвращает количество продуктов в корзине
-    int get_size();
+    int get_size() const;
     // Метод перемещает продукты из временного списка в корзину
     void move();
     // Метод удаляет продукт из временного списка

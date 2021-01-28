@@ -46,8 +46,10 @@ void Basket::add_to_temp(Accessory &p)
 /**
  * Метод возвращает продукт из корзины.
  * @param i: индекс продукта.
+ * @return: объект-комплект, находящийся под индексом i,
+ * или пустой объект.
  */
-Accessory Basket::at(int i)
+Accessory Basket::at(int i) const
 {
     if (0 <= i && i < products.size())
         return products.at(i);
@@ -67,7 +69,7 @@ void Basket::clear()
  * Метод возвращает стоимость корзины.
  * @return: стоимость корзины.
  */
-QVariant Basket::get_price()
+QVariant Basket::get_price() const
 {
     int price = 0;
     for (int i = 0; i < products.size(); i++)
@@ -79,7 +81,7 @@ QVariant Basket::get_price()
  * Метод возвращает количество продуктов в корзине.
  * @return: количество элементов.
  */
-int Basket::get_size()
+int Basket::get_size() const
 {
     return products.size();
 }

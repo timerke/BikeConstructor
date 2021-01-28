@@ -46,7 +46,7 @@ Accessory::Accessory(const QList<QString> &names,
  * Конструктор инициализации.
  * @param names: список названий полей;
  * @param types: список типов полей;
- * @param query: запрос к базе данных'
+ * @param query: запрос к базе данных;
  * @param type: тип компонента.
  */
 Accessory::Accessory(const QList<QString> &names,
@@ -171,7 +171,7 @@ void Accessory::init(const QSqlQuery &query)
  * Метод проверяет, что все необходимые поля имеют значения.
  * @return: true, если некоторые поля пустые, иначе false.
  */
-bool Accessory::is_empty()
+bool Accessory::is_empty() const
 {
     for (auto i : required)
     {
@@ -262,7 +262,7 @@ void Accessory::set(const QList<int> &i, const QList<float> &f,
 }
 
 /**
- * Метод задает значения полей.
+ * Метод задает значения полей копированием аналогичного объекта.
  * @param a: объект-компонент.
  */
 void Accessory::set(const Accessory &a)

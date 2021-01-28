@@ -10,6 +10,9 @@
 #include <QStringList>
 
 
+// Тип режима работы приложения: администратор или пользователь
+enum Mode {ADMIN_MODE, USER_MODE};
+
 const QString CHASSIS = "chassis";
 const QString CHASSIS_RUS = "Рама";
 const QString FRONT_ABSORBER = "front_absorber";
@@ -68,8 +71,5 @@ const QList<QStringList> FIELDS_TYPES =
      {"int", "str", "float", "int"},
      {"int", "str", "int", "int"},
      {"int", "str", "int", "int"}};
-
-// Режим работы приложения: администратор или пользователь
-enum Mode {ADMIN_MODE, USER_MODE};
 
 #endif // CONST_H
