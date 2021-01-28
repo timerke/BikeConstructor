@@ -13,16 +13,27 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Sql Widgets REQUIRED)
 
-add_executable(bike
-    mainwindow.ui
-    mainwindow.cpp
+set(SOURCES
     accessory.cpp
     basket.cpp
     database.cpp
     functions.cpp
-    main.cpp
-)
+    mainwindow.cpp
+    main.cpp)
 
-target_link_libraries(helloworld Qt5::Widgets)
+set(HEADERS
+    accessory.h
+    basket.h
+    const.h
+    database.h
+    functions.h
+    mainwindow.h)
+
+add_executable(bike
+    mainwindow.ui
+    ${SOURCES}
+    ${HEADERS})
+
+target_link_libraries(bike Qt5::Core Qt5::Gui Qt5::Sql Qt5::Widgets)
