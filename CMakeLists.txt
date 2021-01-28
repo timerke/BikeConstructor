@@ -15,24 +15,25 @@ endif()
 
 find_package(Qt5 COMPONENTS Core Gui Sql Widgets REQUIRED)
 
+set(SRC_PATH src)
 set(SOURCES
-    accessory.cpp
-    basket.cpp
-    database.cpp
-    functions.cpp
-    mainwindow.cpp
-    main.cpp)
+    ${SRC_PATH}/accessory.cpp
+    ${SRC_PATH}/basket.cpp
+    ${SRC_PATH}/database.cpp
+    ${SRC_PATH}/functions.cpp
+    ${SRC_PATH}/mainwindow.cpp
+    ${SRC_PATH}/main.cpp)
 
 set(HEADERS
-    accessory.h
-    basket.h
-    const.h
-    database.h
-    functions.h
-    mainwindow.h)
+    ${SRC_PATH}/accessory.h
+    ${SRC_PATH}/basket.h
+    ${SRC_PATH}/const.h
+    ${SRC_PATH}/database.h
+    ${SRC_PATH}/functions.h
+    ${SRC_PATH}/mainwindow.h)
 
 add_executable(bike
-    mainwindow.ui
+    ${SRC_PATH}/mainwindow.ui
     ${SOURCES}
     ${HEADERS})
 
