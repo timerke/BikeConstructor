@@ -349,8 +349,10 @@ QWidget* MainWindow::create_selection_for_tbls_wnd()
     // Создаем список с таблицами
     QComboBox *combo = new QComboBox(widget);
     combo->addItems(TBLS_RUS);
+    /*
     connect(combo, &QComboBox::currentIndexChanged, this,
             &MainWindow::set_new_tbl);
+    */
     vbox->addWidget(combo, 1, Qt::AlignVCenter);
     // Создаем кнопку выбора
     btn = new QPushButton("Выбрать", widget);
