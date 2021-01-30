@@ -2,7 +2,7 @@
  * Модуль содержит определения методов класса MainWindow.
  */
 
-#include "mainwindow.h"
+#include <iostream>
 #include <QApplication>
 #include <QComboBox>
 #include <QFormLayout>
@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include "mainwindow.h"
 
 
 /**
@@ -500,7 +501,8 @@ void MainWindow::delete_item()
         }
     }
     // Сортируем список строк по убыванию
-    qSort(rows.begin(), rows.end(), qGreater<int>());
+    std::sort(rows.begin(), rows.end(), std::greater<int>());
+    // qSort(rows.begin(), rows.end(), qGreater<int>());
     if (db->remove(TBLS_ENG[tbl_index], ids))
     {
         // Позиции были удалены, удаляем из виджета
